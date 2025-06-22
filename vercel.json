@@ -1,0 +1,18 @@
+{
+  "builds": [
+    {
+      "src": "static/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://your-heroku-app.herokuapp.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/static/$1"
+    }
+  ]
+}

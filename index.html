@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockPredict Pro - Advanced Stock Prediction Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="page active">
+        <nav class="landing-nav">
+            <div class="container flex items-center justify-between">
+                <div class="logo">
+                    <h2>StockPredict Pro</h2>
+                </div>
+                <div class="nav-links flex items-center gap-16">
+                    <a href="#features">Features</a>
+                    <a href="#about">About</a>
+                    <button class="btn btn--primary" onclick="showDashboard()">Launch Dashboard</button>
+                </div>
+            </div>
+        </nav>
+        
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Advanced Stock Prediction Platform</h1>
+                    <p>Harness the power of machine learning, sentiment analysis, and real-time data to make informed investment decisions. Our platform combines LSTM, ARIMA, and Linear Regression models for accurate stock predictions.</p>
+                    <div class="hero-stats flex gap-16">
+                        <div class="stat-item">
+                            <h3>87.3%</h3>
+                            <p>LSTM Accuracy</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>50+</h3>
+                            <p>Stock Symbols</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>Real-time</h3>
+                            <p>Data Updates</p>
+                        </div>
+                    </div>
+                    <button class="btn btn--primary btn--lg" onclick="showDashboard()">Get Started</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2>Platform Features</h2>
+                <div class="features-grid">
+                    <div class="card feature-card">
+                        <div class="card__body">
+                            <h3>Multi-Model Predictions</h3>
+                            <p>Compare LSTM, ARIMA, and Linear Regression models to get comprehensive stock predictions with confidence intervals.</p>
+                        </div>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="card__body">
+                            <h3>Sentiment Analysis</h3>
+                            <p>Real-time news and social media sentiment analysis to gauge market mood and make informed decisions.</p>
+                        </div>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="card__body">
+                            <h3>Portfolio Management</h3>
+                            <p>Track your investments, analyze performance, and get risk assessment with diversification recommendations.</p>
+                        </div>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="card__body">
+                            <h3>Technical Indicators</h3>
+                            <p>Advanced charting with SMA, EMA, RSI indicators and real-time price updates for technical analysis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="page">
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>StockPredict Pro</h3>
+                    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" onclick="showSection('overview')">
+                        📊 Overview
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('analysis')">
+                        📈 Stock Analysis
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('portfolio')">
+                        💼 Portfolio
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('sentiment')">
+                        📰 Sentiment
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('settings')">
+                        ⚙️ Settings
+                    </a>
+                    <a href="#" class="nav-item" onclick="showLanding()">
+                        🏠 Home
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Overview Section -->
+                <div id="overview-section" class="section active">
+                    <div class="section-header">
+                        <h1>Market Overview</h1>
+                        <div class="search-container">
+                            <input type="text" id="stock-search" class="form-control" placeholder="Search stocks (e.g., AAPL, GOOGL)">
+                            <button class="btn btn--primary" onclick="searchStock()">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="overview-grid">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Market Status</h3>
+                                <div class="status status--success">Market Open</div>
+                                <p class="mt-8">Trading hours: 9:30 AM - 4:00 PM EST</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Active Predictions</h3>
+                                <div class="metric">
+                                    <span class="metric-value">12</span>
+                                    <span class="metric-label">Models Running</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Portfolio Value</h3>
+                                <div class="metric">
+                                    <span class="metric-value">$3,648.55</span>
+                                    <span class="metric-change positive">+$398.55 (12.2%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="watchlist-section">
+                        <h2>Stock Watchlist</h2>
+                        <div class="stock-grid" id="stock-grid">
+                            <!-- Stock cards will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stock Analysis Section -->
+                <div id="analysis-section" class="section">
+                    <div class="section-header">
+                        <h1>Stock Analysis</h1>
+                        <div id="selected-stock-info" class="stock-info">
+                            <span class="stock-symbol">Select a stock</span>
+                        </div>
+                    </div>
+
+                    <div class="analysis-grid">
+                        <div class="card chart-card">
+                            <div class="card__body">
+                                <h3>Price Chart & Predictions</h3>
+                                <div class="chart-container">
+                                    <canvas id="price-chart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Prediction Models</h3>
+                                <div class="model-comparison" id="model-results">
+                                    <!-- Model results will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Technical Indicators</h3>
+                                <div class="indicator-grid">
+                                    <div class="indicator">
+                                        <span class="indicator-label">RSI (14)</span>
+                                        <span class="indicator-value">58.4</span>
+                                    </div>
+                                    <div class="indicator">
+                                        <span class="indicator-label">SMA (50)</span>
+                                        <span class="indicator-value">$172.33</span>
+                                    </div>
+                                    <div class="indicator">
+                                        <span class="indicator-label">EMA (20)</span>
+                                        <span class="indicator-value">$174.22</span>
+                                    </div>
+                                    <div class="indicator">
+                                        <span class="indicator-label">Volume</span>
+                                        <span class="indicator-value">45.2M</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Section -->
+                <div id="portfolio-section" class="section">
+                    <div class="section-header">
+                        <h1>Portfolio Management</h1>
+                        <button class="btn btn--primary" onclick="showAddStockModal()">Add Stock</button>
+                    </div>
+
+                    <div class="portfolio-summary">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Portfolio Performance</h3>
+                                <div class="portfolio-chart-container">
+                                    <canvas id="portfolio-chart" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-holdings">
+                        <h2>Current Holdings</h2>
+                        <div class="holdings-table" id="holdings-table">
+                            <!-- Portfolio holdings will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Section -->
+                <div id="sentiment-section" class="section">
+                    <div class="section-header">
+                        <h1>Market Sentiment</h1>
+                    </div>
+
+                    <div class="sentiment-grid">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Overall Sentiment</h3>
+                                <div class="sentiment-gauge">
+                                    <div class="gauge-container">
+                                        <div class="gauge-meter">
+                                            <div class="gauge-fill" style="width: 65%"></div>
+                                        </div>
+                                        <div class="gauge-label">65% Positive</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Sentiment Breakdown</h3>
+                                <div class="sentiment-stats">
+                                    <div class="stat-row">
+                                        <span>Positive News</span>
+                                        <span class="positive">28 articles</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span>Negative News</span>
+                                        <span class="negative">12 articles</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span>Neutral News</span>
+                                        <span>5 articles</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card news-card">
+                            <div class="card__body">
+                                <h3>Recent News</h3>
+                                <div class="news-list" id="news-list">
+                                    <!-- News items will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings-section" class="section">
+                    <div class="section-header">
+                        <h1>Settings & Preferences</h1>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Display Preferences</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Theme</label>
+                                    <select class="form-control" id="theme-select" onchange="changeTheme(this.value)">
+                                        <option value="auto">Auto (System)</option>
+                                        <option value="light">Light</option>
+                                        <option value="dark">Dark</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Default Currency</label>
+                                    <select class="form-control">
+                                        <option value="USD">USD ($)</option>
+                                        <option value="EUR">EUR (€)</option>
+                                        <option value="GBP">GBP (£)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Prediction Settings</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Default Prediction Model</label>
+                                    <select class="form-control">
+                                        <option value="lstm">LSTM Neural Network</option>
+                                        <option value="arima">ARIMA</option>
+                                        <option value="linear">Linear Regression</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Prediction Horizon (Days)</label>
+                                    <input type="number" class="form-control" value="30" min="1" max="365">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Notifications</h3>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" checked> Price Alerts
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" checked> News Updates
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox"> Email Notifications
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Stock Modal -->
+    <div id="add-stock-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Stock to Portfolio</h3>
+                <button class="modal-close" onclick="hideAddStockModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Stock Symbol</label>
+                    <input type="text" id="modal-stock-symbol" class="form-control" placeholder="e.g., AAPL">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Shares</label>
+                    <input type="number" id="modal-shares" class="form-control" placeholder="0" min="1">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Average Cost per Share</label>
+                    <input type="number" id="modal-cost" class="form-control" placeholder="0.00" step="0.01" min="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" onclick="hideAddStockModal()">Cancel</button>
+                <button class="btn btn--primary" onclick="addStockToPortfolio()">Add Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
